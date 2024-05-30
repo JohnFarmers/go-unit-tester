@@ -13,7 +13,7 @@ go get github.com/JohnFarmers/go-unit-tester
 
 #### Example:
 
-Let's say you have project structure like this(be sure to also create `unittester/unittester.go` file):
+Let's say you have project structure like this(be sure to also create `unittester/unittester.go` file as shown below):
 
 ```
 | go-example-project
