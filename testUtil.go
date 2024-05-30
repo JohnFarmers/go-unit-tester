@@ -10,13 +10,18 @@ import (
 )
 
 func UnitTest(function interface{}, expected []interface{}, params []interface{}, checkOutputTypeOnly bool) bool {
+	fnType := reflect.TypeOf(function)
+	if fnType.Kind() != reflect.Func {
+		fmt.Println("\033[31mFailed:", function, "is not a function.\033[0m")
+		return false
+	}
+
 	args := []reflect.Value{}
 	for _, param := range params {
 		args = append(args, reflect.ValueOf(param))
 	}
 
 	functionName := runtime.FuncForPC(reflect.ValueOf(function).Pointer()).Name()
-	fnType := reflect.TypeOf(function)
 	inputLength := fnType.NumIn()
 
 	if len(params) != inputLength {
@@ -70,13 +75,18 @@ func UnitTest(function interface{}, expected []interface{}, params []interface{}
 }
 
 func UnitTestWithMultipleOutputCase(function interface{}, expectedOutputs [][]interface{}, params []interface{}, checkOutputTypeOnly bool) bool {
+	fnType := reflect.TypeOf(function)
+	if fnType.Kind() != reflect.Func {
+		fmt.Println("\033[31mFailed:", function, "is not a function.\033[0m")
+		return false
+	}
+
 	args := []reflect.Value{}
 	for _, param := range params {
 		args = append(args, reflect.ValueOf(param))
 	}
 
 	functionName := runtime.FuncForPC(reflect.ValueOf(function).Pointer()).Name()
-	fnType := reflect.TypeOf(function)
 	inputLength := fnType.NumIn()
 
 	if len(params) != inputLength {
