@@ -54,7 +54,7 @@ import (
 )
 
 func init() {
-	// You can perform unit test by calling UnitTest function like this.
+	// You can perform unit test like this.
 	UnitTest(mth.Add, []interface{}{5}, []interface{}{2, 3}, false)
 	UnitTest(mth.Subtract, []interface{}{2}, []interface{}{10, 8}, false)
 	UnitTest(mth.Multiply, []interface{}{10}, []interface{}{5, 2}, false)
@@ -162,4 +162,4 @@ UnitTestWithMultipleOutputCase(
 )
 ```
 
-Since the function `RandNum()` above can output either 0, 1, or 2. We can have multiple expected outputs, so that we can check for all of it.
+Since the function `RandNum()` above can output either 0, 1, or 2. We can have multiple expected outputs, so that we can check for all of them.
