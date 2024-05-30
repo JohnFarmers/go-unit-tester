@@ -106,7 +106,7 @@ Perform a unit test on the given function by checking if the real outputs is the
 
 ```go
 import (
-    tester "github.com/JohnFarmers/go-unit-tester"
+    test "github.com/JohnFarmers/go-unit-tester"
 )
 
 // If you want to unit test this function.
@@ -145,7 +145,7 @@ This method is for checking a function that can have multiple output cases.
 ```go
 import (
 	"math/rand/v2"
-    test "github.com/JohnFarmers/go-unit-tester"
+	test "github.com/JohnFarmers/go-unit-tester"
 )
 
 // If you want to unit test this function.
