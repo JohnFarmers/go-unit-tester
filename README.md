@@ -5,22 +5,20 @@ Go Unit Tester is a small Golang library that provided a utility functions for u
 ## Usages
 
 ### Setting up:
-Download this package as .zip and extract it then drag and drop this folder into your project directory and you can import this package and call it's function.
+Run the following command to install the module.
 
-In some case you might want to run the test before running your `main()`, You can do so by using the template in `unittest.go` file.
+```sh
+go get github.com/JohnFarmers/go-unit-tester
+```
 
 #### Example:
 
-In `unittester.go` file there is a `inti()` function, this function will automatically be call once before the `main()` function. You can put your unit test here.
-
-For example, let's say you have project structure like this(assuming that you already imported this package):
+Let's say you have project structure like this(be sure to also create `unittester/unittester.go` file):
 
 ```
 | go-example-project
-|   > go-unittester
-|       - testUtil.go
+|   > unittester
 |       - unittester.go
-|       - README.md
 |   > mathUtil
 |       - mathUtil.go
 |   main.go
@@ -44,20 +42,21 @@ func Multiply(a int, b int) int {
 }
 ```
 
-In `unittester.go` you can test them like this:
+In `unittester.go` file you will have to create `inti()` function, this function will automatically be call once before the `main()` function. Be sure to import the module `"github.com/JohnFarmers/go-unit-tester"` first and then you can put your unit test code here.
 
 ```go
 package unittester
 
 import (
+    test "github.com/JohnFarmers/go-unit-tester"
     mth "go-example-project/mathUtil"
 )
 
 func init() {
 	// You can perform unit test like this.
-	UnitTest(mth.Add, []interface{}{5}, []interface{}{2, 3}, false)
-	UnitTest(mth.Subtract, []interface{}{2}, []interface{}{10, 8}, false)
-	UnitTest(mth.Multiply, []interface{}{10}, []interface{}{5, 2}, false)
+	test.UnitTest(mth.Add, []interface{}{5}, []interface{}{2, 3}, false)
+	test.UnitTest(mth.Subtract, []interface{}{2}, []interface{}{10, 8}, false)
+	test.UnitTest(mth.Multiply, []interface{}{10}, []interface{}{5, 2}, false)
 }
 ```
 
@@ -67,7 +66,7 @@ Lastly, in order for the `init()` function to be call, all you have to do is go 
 package main
 
 import (
-	_ "go-example-project/go-unit-tester"
+	_ "go-example-project/unittester"
 )
 
 func main() {
@@ -106,13 +105,17 @@ Perform a unit test on the given function by checking if the real outputs is the
 #### Example:
 
 ```go
+import (
+    tester "github.com/JohnFarmers/go-unit-tester"
+)
+
 // If you want to unit test this function.
 func Add(a int, b int) int {
     return a + b
 }
 
 // You can do so like this.
-UnitTest(Add, []interface{}{5}, []interface{}{2, 3}, false)
+test.UnitTest(Add, []interface{}{5}, []interface{}{2, 3}, false)
 ```
 
 The function call above perform a unit test on function `Add(a int, b int)` with `5` as an expected output and also with `2` and `3` as an inputs.
@@ -142,6 +145,7 @@ This method is for checking a function that can have multiple output cases.
 ```go
 import (
 	"math/rand/v2"
+    test "github.com/JohnFarmers/go-unit-tester"
 )
 
 // If you want to unit test this function.
@@ -150,7 +154,7 @@ func RandNum() int {
 }
 
 // You can do so like this.
-UnitTestWithMultipleOutputCase(
+test.UnitTestWithMultipleOutputCase(
     RandNum,
     [][]interface{}{
         []interface{}{0}, 
