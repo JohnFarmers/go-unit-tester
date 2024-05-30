@@ -5,7 +5,7 @@ Go Unit Tester is a small Golang library that provided a utility functions for u
 ## Usages
 
 ### Setting up:
-Drag and drop this folder into your project directory and you can import this package and call it's function.
+Download this package as .zip and extract them then drag and drop this folder into your project directory and you can import this package and call it's function.
 
 In some case you might want to run the test before running your `main()`, You can do so by using the template in `unittest.go` file.
 
