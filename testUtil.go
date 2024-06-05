@@ -51,7 +51,7 @@ func UnitTest(function interface{}, expected []interface{}, params []interface{}
 	if outputLength >= 1 {
 		lastOutput := results[outputLength-1]
 		if lastOutput.Interface() != nil && reflect.TypeOf(lastOutput.Interface()).Implements(reflect.TypeOf((*error)(nil)).Elem()) {
-			fmt.Println("\033[31mFAIL:", functionName, "returned an error:", lastOutput.Interface())
+			fmt.Println("\033[31mFAIL:", functionName, "returned an error:", lastOutput.Interface(), "\033[0m")
 			return false
 		}
 	}
