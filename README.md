@@ -54,9 +54,9 @@ import (
 
 func init() {
 	// You can perform unit test like this.
-	test.UnitTest(mth.Add, []interface{}{5}, []interface{}{2, 3}, false)
-	test.UnitTest(mth.Subtract, []interface{}{2}, []interface{}{10, 8}, false)
-	test.UnitTest(mth.Multiply, []interface{}{10}, []interface{}{5, 2}, false)
+	test.UnitTest(mth.Add, []interface{}{5}, []interface{}{2, 3}, false, true)
+	test.UnitTest(mth.Subtract, []interface{}{2}, []interface{}{10, 8}, false, true)
+	test.UnitTest(mth.Multiply, []interface{}{10}, []interface{}{5, 2}, false, true)
 }
 ```
 
@@ -86,7 +86,7 @@ go run .
 
 #### UnitTest
 
-`UnitTest(function interface{}, expected []interface{}, params []interface{}, checkOutputTypeOnly bool) bool`
+`UnitTest(function interface{}, expected []interface{}, params []interface{}, checkOutputTypeOnly bool, detailedPassLog bool) bool`
 
 #### Description
 Perform a unit test on the given function by checking if the real outputs is the same as the expected outputs or not and print out error if any unexpected outputs/behavior occured.
@@ -99,6 +99,7 @@ Perform a unit test on the given function by checking if the real outputs is the
 | `expected` | `[]interface{}` | The expected outputs of the function. |
 | `params` | `[]interface{}` | The inputs of the function. |
 | `checkOutputTypeOnly` | `bool` | Determine whether or not to check the type of the output only and ignore it's values. If `true`, when checking the output, it will only check if the type of the outputs match the expected outputs. If `false`, it will check both type and value. |
+| `detailedPassLog` | `bool` | Determine whether or not to print the full outputs of the tested function if the test is pass. |
 
 #### Return types: `bool`
 
@@ -115,14 +116,14 @@ func Add(a int, b int) int {
 }
 
 // You can do so like this.
-test.UnitTest(Add, []interface{}{5}, []interface{}{2, 3}, false)
+test.UnitTest(Add, []interface{}{5}, []interface{}{2, 3}, false, true)
 ```
 
 The function call above perform a unit test on function `Add(a int, b int)` with `5` as an expected output and also with `2` and `3` as an inputs.
 
 #### UnitTestWithMultipleOutputCase
 
-`UnitTestWithMultipleOutputCase(function interface{}, expectedOutputs [][]interface{}, params []interface{}, checkOutputTypeOnly bool) bool`
+`UnitTestWithMultipleOutputCase(function interface{}, expectedOutputs [][]interface{}, params []interface{}, checkOutputTypeOnly bool, detailedPassLog bool) bool`
 
 #### Description
 Perform a unit test on the given function by checking if the real outputs is the same as the expected outputs or not and print out error if any unexpected outputs/behavior occured.
@@ -137,6 +138,7 @@ This method is for checking a function that can have multiple output cases.
 | `expected` | `[][]interface{}` | The expected outputs of the function in each cases. |
 | `params` | `[]interface{}` | The inputs of the function. |
 | `checkOutputTypeOnly` | `bool` | Determine whether or not to check the type of the output only and ignore it's values. If `true`, when checking the output, it will only check if the type of the outputs match the expected outputs. If `false`, it will check both type and value. |
+| `detailedPassLog` | `bool` | Determine whether or not to print the full outputs of the tested function if the test is pass. |
 
 #### Return types: `bool`
 
@@ -163,6 +165,7 @@ test.UnitTestWithMultipleOutputCase(
     },
     []interface{}{},
     false,
+    true,
 )
 ```
 

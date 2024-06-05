@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func UnitTest(function interface{}, expected []interface{}, params []interface{}, checkOutputTypeOnly bool) bool {
+func UnitTest(function interface{}, expected []interface{}, params []interface{}, checkOutputTypeOnly bool, detailedPassLog bool) bool {
 	fnType := reflect.TypeOf(function)
 	if fnType.Kind() != reflect.Func {
 		fmt.Println("\033[31mFAIL:", function, "is not a function.\033[0m")
@@ -70,11 +70,16 @@ func UnitTest(function interface{}, expected []interface{}, params []interface{}
 		}
 	}
 
-	fmt.Println("\033[32mPASS: " + functionName + " function outputs " + formatValuesAsStr(results) + " with " + formatValuesAsStr(args) + " as an arguments and run successfully.\033[0m")
+	if detailedPassLog {
+		fmt.Println("\033[32mPASS:", functionName, "function outputs "+formatValuesAsStr(results)+" with "+formatValuesAsStr(args)+" as an arguments and run successfully.\033[0m")
+	} else {
+		fmt.Println("\033[32mPASS:", functionName, "run successfully.\033[0m")
+	}
+
 	return true
 }
 
-func UnitTestWithMultipleOutputCase(function interface{}, expectedOutputs [][]interface{}, params []interface{}, checkOutputTypeOnly bool) bool {
+func UnitTestWithMultipleOutputCase(function interface{}, expectedOutputs [][]interface{}, params []interface{}, checkOutputTypeOnly bool, detailedPassLog bool) bool {
 	fnType := reflect.TypeOf(function)
 	if fnType.Kind() != reflect.Func {
 		fmt.Println("\033[31mFAIL:", function, "is not a function.\033[0m")
@@ -146,7 +151,11 @@ out:
 	}
 
 	if isSuccessful {
-		fmt.Println("\033[32mPASS: " + functionName + " function outputs " + formatValuesAsStr(results) + " with " + formatValuesAsStr(args) + " as an arguments and run successfully.\033[0m")
+		if detailedPassLog {
+			fmt.Println("\033[32mPASS:", functionName, "function outputs "+formatValuesAsStr(results)+" with "+formatValuesAsStr(args)+" as an arguments and run successfully.\033[0m")
+		} else {
+			fmt.Println("\033[32mPASS:", functionName, "run successfully.\033[0m")
+		}
 	} else {
 		fmt.Println("\033[31mFAIL:", functionName, "error logs: \n[\033[0m")
 		printFn := reflect.ValueOf(fmt.Println)
