@@ -12,7 +12,7 @@ import (
 func UnitTest(function interface{}, expected []interface{}, params []interface{}, checkOutputTypeOnly bool) bool {
 	fnType := reflect.TypeOf(function)
 	if fnType.Kind() != reflect.Func {
-		fmt.Println("\033[31mFailed:", function, "is not a function.\033[0m")
+		fmt.Println("\033[31mFAIL:", function, "is not a function.\033[0m")
 		return false
 	}
 
@@ -25,7 +25,7 @@ func UnitTest(function interface{}, expected []interface{}, params []interface{}
 	inputLength := fnType.NumIn()
 
 	if len(params) != inputLength {
-		fmt.Println("\033[31mFailed: The amount of given inputs is", len(params), "which doesn't match the amount of input of function", functionName, "which is", inputLength, "\033[0m")
+		fmt.Println("\033[31mFAIL: The amount of given inputs is", len(params), "which doesn't match the amount of input of function", functionName, "which is", inputLength, "\033[0m")
 		return false
 	}
 
@@ -33,7 +33,7 @@ func UnitTest(function interface{}, expected []interface{}, params []interface{}
 		realInputType := fnType.In(i)
 		inputType := reflect.TypeOf(params[i])
 		if realInputType != inputType {
-			fmt.Println("\033[31mFailed:", functionName, "input type index of", i, "is", realInputType, "but the input that has been given is", inputType, "\033[0m")
+			fmt.Println("\033[31mFAIL:", functionName, "input type index of", i, "is", realInputType, "but the input that has been given is", inputType, "\033[0m")
 			return false
 		}
 	}
@@ -44,40 +44,40 @@ func UnitTest(function interface{}, expected []interface{}, params []interface{}
 	outputLength := len(results)
 
 	if len(expected) != outputLength {
-		fmt.Println("\033[31mFailed: The amount of outputs of function", functionName, "is", outputLength, "which doesn't match the amount of expected output which is", len(expected), "\033[0m")
+		fmt.Println("\033[31mFAIL: The amount of outputs of function", functionName, "is", outputLength, "which doesn't match the amount of expected output which is", len(expected), "\033[0m")
 		return false
 	}
 
 	if outputLength >= 1 {
 		lastOutput := results[outputLength-1]
 		if lastOutput.Interface() != nil && reflect.TypeOf(lastOutput.Interface()).Implements(reflect.TypeOf((*error)(nil)).Elem()) {
-			fmt.Println("\033[31mFailed:", functionName, "returned an error:", lastOutput.Interface())
+			fmt.Println("\033[31mFAIL:", functionName, "returned an error:", lastOutput.Interface())
 			return false
 		}
 	}
 
 	for i, value := range results {
 		if reflect.TypeOf(value.Interface()) != reflect.TypeOf(expected[i]) {
-			fmt.Println("\033[31mFailed:", functionName, "output index of", i, "return type is", reflect.TypeOf(value.Interface()), "but expected type of", reflect.TypeOf(expected[i]), "\033[0m")
+			fmt.Println("\033[31mFAIL:", functionName, "output index of", i, "return type is", reflect.TypeOf(value.Interface()), "but expected type of", reflect.TypeOf(expected[i]), "\033[0m")
 			return false
 		}
 		if checkOutputTypeOnly {
 			continue
 		}
 		if value.Interface() != expected[i] {
-			fmt.Println("\033[31mFailed:", functionName, "output index of", i, "returned", value.Interface(), "but expected", expected[i], "\033[0m")
+			fmt.Println("\033[31mFAIL:", functionName, "output index of", i, "returned", value.Interface(), "but expected", expected[i], "\033[0m")
 			return false
 		}
 	}
 
-	fmt.Println("\033[32mSuccess: " + functionName + " function outputs " + formatValuesAsStr(results) + " with " + formatValuesAsStr(args) + " as an arguments and run successfully.\033[0m")
+	fmt.Println("\033[32mPASS: " + functionName + " function outputs " + formatValuesAsStr(results) + " with " + formatValuesAsStr(args) + " as an arguments and run successfully.\033[0m")
 	return true
 }
 
 func UnitTestWithMultipleOutputCase(function interface{}, expectedOutputs [][]interface{}, params []interface{}, checkOutputTypeOnly bool) bool {
 	fnType := reflect.TypeOf(function)
 	if fnType.Kind() != reflect.Func {
-		fmt.Println("\033[31mFailed:", function, "is not a function.\033[0m")
+		fmt.Println("\033[31mFAIL:", function, "is not a function.\033[0m")
 		return false
 	}
 
@@ -90,7 +90,7 @@ func UnitTestWithMultipleOutputCase(function interface{}, expectedOutputs [][]in
 	inputLength := fnType.NumIn()
 
 	if len(params) != inputLength {
-		fmt.Println("\033[31mFailed: The amount of given inputs is", len(params), "which doesn't match the amount of input of function", functionName, "which is", inputLength, "\033[0m")
+		fmt.Println("\033[31mFAIL: The amount of given inputs is", len(params), "which doesn't match the amount of input of function", functionName, "which is", inputLength, "\033[0m")
 		return false
 	}
 
@@ -98,7 +98,7 @@ func UnitTestWithMultipleOutputCase(function interface{}, expectedOutputs [][]in
 		realInputType := fnType.In(i)
 		inputType := reflect.TypeOf(params[i])
 		if realInputType != inputType {
-			fmt.Println("\033[31mFailed:", functionName, "input type index of", i, "is", realInputType, "but the input that has been given is", inputType, "\033[0m")
+			fmt.Println("\033[31mFAIL:", functionName, "input type index of", i, "is", realInputType, "but the input that has been given is", inputType, "\033[0m")
 			return false
 		}
 	}
@@ -146,9 +146,9 @@ out:
 	}
 
 	if isSuccessful {
-		fmt.Println("\033[32mSuccess: " + functionName + " function outputs " + formatValuesAsStr(results) + " with " + formatValuesAsStr(args) + " as an arguments and run successfully.\033[0m")
+		fmt.Println("\033[32mPASS: " + functionName + " function outputs " + formatValuesAsStr(results) + " with " + formatValuesAsStr(args) + " as an arguments and run successfully.\033[0m")
 	} else {
-		fmt.Println("\033[31mFailed:", functionName, "error logs: \n[\033[0m")
+		fmt.Println("\033[31mFAIL:", functionName, "error logs: \n[\033[0m")
 		printFn := reflect.ValueOf(fmt.Println)
 		for _, msg := range errorMessages {
 			reflectValues := []reflect.Value{}
