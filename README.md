@@ -76,7 +76,7 @@ func main() {
 
 Note: the `_` before the package path is needed. If you don't include the `_`, the imported package will be remove when you save the file.
 
-Once everything is done, you can use te command to run your project and the unit test code should be running before your `main()`.
+Once everything is done, you can use the command to run your project and the unit test code should be running before your `main()`.
 
 ```sh
 go run .
